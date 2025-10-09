@@ -16,7 +16,7 @@ export default function skin_types() {
     const isNormal = skinData.type === "normal";
     const isSensitive = skinData.type === "sensitive";
     return (
-        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#ffffffff'}}>
             <Progress.Bar progress={0.3} width={200} />
             <Text style={styles.question}>What's your skin type?</Text>
             <Text style={styles.description}>Choose the one that best describes your skin</Text>

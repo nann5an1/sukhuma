@@ -1,5 +1,6 @@
 //create context using createContext to use commly from every component
 import { createContext, useState } from "react";
+import skincare_exp from "../app/skincare_exp";
 
 // SkinDataProvider = the component that wraps your app
 // SkinDataContext = the context object that holds the data
@@ -9,6 +10,7 @@ export default function SkinDataProvider({children}){ //set up provider for the 
     const [skinData, setSkinData] = useState({
         type: "",
         sensitivity: "",
+        skincare_exp: "",
         age: "",
         skinConcerns: []
     });

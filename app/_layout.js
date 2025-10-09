@@ -10,6 +10,7 @@ export default function RootLayout() {
         <Stack.Screen name="index" options={{ title: "Home" }} />
         <Stack.Screen name="skin_types" options={{ title: "Skin Type" }} />
         <Stack.Screen name="sensitivity" options={{ title: "Sensitivity" }} />
+        <Stack.Screen name="skincare_exp" options={{ title: "Skincare Experience" }} />
       </Stack>
     </SkinDataProvider>
   );

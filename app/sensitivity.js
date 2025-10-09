@@ -15,18 +15,28 @@ export default function skin_types() {
     const isVery = skinData.sensitivity === "very";
 
     return (
-        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#ffffffff'}}>
             <Progress.Bar progress={0.3} width={200} />
             <Text style={styles.question}>How sensitive is your skin?</Text>
             <Text style={styles.description}>This helps us recommend gentle products</Text>
             <Pressable 
                 style={[styles.option, isNotSensitive ? styles.optionactive : styles.option]} onPress={() => {isNotSensitive ? handleSkinType("") : handleSkinType("not")}}>
-                <Text style={[styles.optiontitle, isNotSensitive ? styles.optiontitleactive  : styles.optiontitle]}>Not Sensitive</Text>
-                <Text style={[styles.optioninfo, isNotSensitive ? styles.optioninfoactive  : styles.optioninfo]}>My Skin Tolerate Most Products</Text>
+                <View style={styles.optioncontainer}>
+                    <Text style={styles.emoji}>💪</Text>
+                    <View>
+                        <Text style={[styles.optiontitle, isNotSensitive ? styles.optiontitleactive  : styles.optiontitle]}>Not Sensitive</Text>
+                        <Text style={[styles.optioninfo, isNotSensitive ? styles.optioninfoactive  : styles.optioninfo]}>My skin tolerate most products</Text>
+                    </View>
+                </View>
             </Pressable>
             <Pressable style={[styles.option, isSlightly ? styles.optionactive : styles.option]} onPress={() => isSlightly ? handleSkinType("") : handleSkinType("slightly")}>
-                <Text style={[styles.optiontitle,isSlightly ? styles.optiontitleactive : styles.optiontitle]}>Slightly Sensitive</Text>
-                <Text  style={[styles.optioninfo, isSlightly ? styles.optioninfoactive : styles.optioninfo]}>Occational reactions to new products</Text>
+                <View style={styles.optioncontainer}>
+                    <Text style={styles.emoji}>🤔</Text>
+                    <View>
+                        <Text style={[styles.optiontitle,isSlightly ? styles.optiontitleactive : styles.optiontitle]}>Slightly Sensitive</Text>
+                        <Text  style={[styles.optioninfo, isSlightly ? styles.optioninfoactive : styles.optioninfo]}>Occational reactions to new products</Text>
+                    </View>
+                </View>
             </Pressable>
               <Pressable style={[styles.option, isModerate ? styles.optionactive : styles.option]} onPress={() => isModerate ? handleSkinType("") : handleSkinType("moderate")}>
                 <Text style={[styles.optiontitle, isModerate ? styles.optiontitleactive : styles.optiontitle]}>Moderatly Sensitive</Text>
@@ -42,7 +52,7 @@ export default function skin_types() {
                 </Pressable>
                 {skinData && skinData.sensitivity && skinData.sensitivity.length > 0 ? (
                 <Pressable style={styles.nextbutton}
-                onPress={() => router.push("/skincareExp")}><Text style={{color: '#ffffffff', fontSize: 15}}>Continue</Text>
+                onPress={() => router.push("/skincare_exp")}><Text style={{color: '#ffffffff', fontSize: 15}}>Continue</Text>
                 </Pressable>
                 ) : null}
                 
@@ -66,6 +76,10 @@ export default function skin_types() {
         fontWeight: "200",
         marginBottom: 30
     },
+    emoji:{
+        fontSize: 25,
+        paddingRight: 10
+    },
     option:{
         color: '#003119ff',
         backgroundColor: '#f5faf7ff',
@@ -76,6 +90,11 @@ export default function skin_types() {
         borderColor: '#a2d8beff', 
         borderWidth: 0.7,
         borderRadius: 20
+    },
+    optioncontainer:{
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     optiontitle:{
         fontFamily: 'serif',
