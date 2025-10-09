@@ -1,10 +1,5 @@
-import React from 'react';
-// import {NavigationContainer} from '@react-navigation/native';
-// import {createStackNavigator} from '@react-navigation/native-stack';
 import { StyleSheet, Text, View, Button, Pressable } from 'react-native';
 import { router } from 'expo-router';
-// import { Separators } from 'react-native/types_generated/index';
-
 
 export default function App() {
   return (
@@ -42,7 +37,7 @@ const styles = StyleSheet.create({
     marginTop: 50
   },
   title:{
-    color: '#004b27ff',
+    color: '#008d97ff',
     fontSize: 30,
     fontWeight: "bold",
     fontFamily: "serif"
@@ -52,7 +47,7 @@ const styles = StyleSheet.create({
     marginVertical: 5, 
     padding: 10, 
     borderColor: '#004b27ff', 
-    borderWidth: 1,
+    borderWidth: 0.7,
     borderRadius: 20,
     letterSpacing: 1,
     fontWeight: "400",
@@ -62,9 +57,8 @@ const styles = StyleSheet.create({
     color: '#ffffffff',
     paddingVertical: 20, 
     paddingHorizontal: 40,
-    borderWidth: 2,
     borderRadius: 20,
-    backgroundColor: '#003a31ff'
+    backgroundColor: '#12686eff'
   }
 }
 );
