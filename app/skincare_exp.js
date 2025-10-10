@@ -102,36 +102,34 @@ const styles = StyleSheet.create({
     },
      listContainer:{
         marginVertical: 10,
-        paddingHorizontal: 10,
         justifyContent: 'center',
         alignItems: 'center',
         gap: 5,
+        widht: 500
     },
     option:{
         color: '#003119ff',
         backgroundColor: '#f5faf7ff',
         margin: 5, 
-        width: 180,
-        height: 200,
-        padding: 10,
+        width: 150,
+        height: 180,
+        padding: 5,
         borderColor: '#a2d8beff', 
         borderWidth: 0.7,
         borderRadius: 20,
         gap: 10
     },
     optionactive:{
-        color: '#003119ff',
+       color: '#003119ff',
         backgroundColor: '#04a2adff',
-        marginVertical: 5, 
-        marginHorizontal: 5,
-        width: 180,
+        margin: 5, 
+        width: 150,
+        height: 180,
         padding: 5,
         borderColor: '#a2d8beff', 
         borderWidth: 0.7,
         borderRadius: 20,
-        gap: 10,
-        transform: [{scale: 1.1}]
-        
+        gap: 10
     },
     optiontitle:{
         color: '#363636ff',
@@ -139,7 +137,8 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         fontFamily: "serif",
         textAlign: 'center',
-        marginTop: 10
+        marginTop: 10,
+        fontStyle: 'italic'
     },
      optiontitleactive:{
         color: '#ffffffff',
@@ -147,7 +146,8 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         fontFamily: "serif",
         textAlign: 'center',
-        marginTop: 10
+        marginTop: 10,
+        fontStyle: 'italic'
     },
     optiondescription:{
         color: '#6b6b6bff',

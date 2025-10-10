@@ -36,16 +36,20 @@ export default function details(){
     const {skinData, setSkinData} = useContext(SkinDataContext);
     const [isDisabled, setIsDisabled] = useState(true);
     useEffect(() => {
-        skinData && skinData.age && skinData.age.length > 0 ? setIsDisabled(false) : setIsDisabled(true);
-    }, [skinData.age]);
-    function handleSkinData(){
-        setSkinData({...skinData, age: age});
+        if(skinData && (skinData.age && skinData.age.length > 0) && (skinData.acnetype && skinData.acnetype.length > 0)) setIsDisabled(false);
+        else setIsDisabled(true);
+
+    }, [skinData.age, skinData.acnetype]);
+    function handleSkinData(acnetype){
+        setSkinData({...skinData, age: age, acnetype: acnetype});
     }
+    //render each of the item ine data (flatlist)
     const renderItem = ({item}) => {
+        const valueExists = skinData.acnetype === item.key;
         return(
-            <Pressable style={styles.option}>
-                  <Text style={styles.optiontitle}>{item.title}</Text>
-                  <Text style={styles.optioninfo}>{item.info}</Text>
+            <Pressable onPress={() => {valueExists ? handleSkinData("") : handleSkinData(item.key)}} style={valueExists ? styles.optionactive : styles.option}>
+                  <Text style={valueExists ? styles.optiontitleactive :styles.optiontitle}>{item.title}</Text>
+                  <Text style={valueExists ? styles.optioninfoactive : styles.optioninfo}>{item.info}</Text>
             </Pressable>
         );
     }
@@ -115,8 +119,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#e9fff4ff',
         gap: 8,
-        padding: 10,
-        marginHorizontal: 10,
+        padding: 8,
+        marginHorizontal: 8,
         marginVertical: 2,
         borderRadius: 20,
         borderWidth: 0.7,
@@ -124,13 +128,36 @@ const styles = StyleSheet.create({
         width : 170,
         height: 100
     },
+    optionactive:{
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#04a2adff',
+        gap: 8,
+        padding: 10,
+        marginHorizontal: 10,
+        marginVertical: 2,
+        borderRadius: 20,
+        width : 170,
+        height: 100,
+        transform: [{scale: 1.06}]
+    },
+    optioninfoactive:{
+        color: '#e3e3e3ff',
+    },
     optiontitle: {
-        marginTop: 20,
+        marginTop: 8,
         textAlign: 'center',
         color: '#04a2adff',
         fontSize: 15,
         fontWeight: "bold",
         fontFamily: "serif"
+    },
+    optiontitleactive:{
+        textAlign: 'center',
+        fontFamily: "serif",
+        fontSize: 15,
+        fontWeight: "bold",
+        color: '#ffffffff'
     },
     optioninfo:{
         textAlign: 'center',
@@ -138,7 +165,7 @@ const styles = StyleSheet.create({
         fontFamily: "serif",
         fontSize: 15,
         fontWeight: "20",
-        marginBottom: 30
+        marginBottom: 10
     },
     listContainer:{
         alignItems: 'center',
