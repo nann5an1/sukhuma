@@ -1,11 +1,16 @@
 
 import {View, Text, Button, StyleSheet, Pressable, Alert} from 'react-native';
 import { router } from 'expo-router';
-import {useState, useContext} from 'react';
+import {useState, useContext, useEffect} from 'react';
 import {SkinDataContext} from '../context/SkinDataContext';
 import * as Progress from 'react-native-progress';
 export default function skin_types() {
     const {skinData, setSkinData} = useContext(SkinDataContext); //parse the conetext object not the context component(SkinDataProvider)
+    const [isDisabled, setIsDisabled] = useState(true);
+
+    useEffect(() => {
+            skinData && skinData.sensitivity && skinData.sensitivity.length > 0 ? setIsDisabled(false) : setIsDisabled(true);
+        }, [skinData.sensitivity]);
     function handleSkinType(skinType){
         setSkinData({...skinData, sensitivity: skinType});
     }
@@ -50,11 +55,12 @@ export default function skin_types() {
                 <Pressable style={styles.backbutton}
                 onPress={() => router.push("/skin_types")}><Text style={{fontSize: 15}}>Back</Text>
                 </Pressable>
-                {skinData && skinData.sensitivity && skinData.sensitivity.length > 0 ? (
-                <Pressable style={styles.nextbutton}
-                onPress={() => router.push("/skincare_exp")}><Text style={{color: '#ffffffff', fontSize: 15}}>Continue</Text>
+               
+                <Pressable style={isDisabled ? styles.nextbtndisabled :styles.nextbutton}
+                onPress={() => router.push("/skincare_exp")}
+                disabled={isDisabled}><Text style={{color: '#ffffffff', fontSize: 15}}>Continue</Text>
                 </Pressable>
-                ) : null}
+
                 
             </View>
         </View>
@@ -137,6 +143,14 @@ export default function skin_types() {
         borderRadius: 10,
         borderWidth: 1,
         borderColor: '#04a2adff'
+    },
+     nextbtndisabled:{
+        paddingVertical: 10, 
+        paddingHorizontal: 40,
+        backgroundColor: '#b0e2e6ff',
+        borderRadius: 10,
+        borderWidth: 1,
+        borderColor: '#ccf4f7ff'
     },
     buttons:{
         marginVertical: 30,
