@@ -12,7 +12,12 @@ export default function SkinDataProvider({children}){ //set up provider for the 
         skincare_exp: "",
         age: "",
         acnetype: "",
-        skinConcerns: []
+        skinConcerns: [],
+        allergies:[],
+        preferences: [],
+        diet:[],
+        lifestyle:[],
+        budget: "",
     });
 
     return(
