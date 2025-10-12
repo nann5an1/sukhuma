@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: "bold",
         fontFamily: "serif",
-        marginVertical: 20
+        marginVertical: 30,
     },
     description:{
         color: '#767676ff',
@@ -117,45 +117,40 @@ const styles = StyleSheet.create({
     option:{
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#e9fff4ff',
-        gap: 8,
-        padding: 8,
+        backgroundColor: '#f5faf7ff',
+        gap: 5,
+        padding: 5,
         marginHorizontal: 8,
         marginVertical: 2,
         borderRadius: 20,
         borderWidth: 0.7,
-        borderColor: '#129958ff',
+        borderColor: '#a2d8beff',
         width : 170,
-        height: 100
+        height: 80
     },
     optionactive:{
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#04a2adff',
         gap: 8,
-        padding: 10,
-        marginHorizontal: 10,
+        padding: 5,
+        marginHorizontal: 8,
         marginVertical: 2,
         borderRadius: 20,
         width : 170,
-        height: 100,
-        transform: [{scale: 1.06}]
-    },
-    optioninfoactive:{
-        color: '#e3e3e3ff',
+       height: 80
     },
     optiontitle: {
-        marginTop: 8,
         textAlign: 'center',
-        color: '#04a2adff',
-        fontSize: 15,
+        color: '#363636ff',
+        fontSize: 14,
         fontWeight: "bold",
         fontFamily: "serif"
     },
     optiontitleactive:{
         textAlign: 'center',
         fontFamily: "serif",
-        fontSize: 15,
+        fontSize: 14,
         fontWeight: "bold",
         color: '#ffffffff'
     },
@@ -163,9 +158,13 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: '#767676ff',
         fontFamily: "serif",
-        fontSize: 15,
+        fontSize: 12,
         fontWeight: "20",
-        marginBottom: 10
+    },
+     optioninfoactive:{
+        color: '#e3e3e3ff',
+        fontSize: 12,
+        fontFamily: "serif"
     },
     listContainer:{
         alignItems: 'center',
@@ -174,7 +173,6 @@ const styles = StyleSheet.create({
     },
     agedropdown:{
         width: 300,
-        height: 110
     },
     backbutton:{
         paddingVertical: 10, 

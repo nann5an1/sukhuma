@@ -111,21 +111,21 @@ const styles = StyleSheet.create({
         color: '#003119ff',
         backgroundColor: '#f5faf7ff',
         margin: 5, 
-        width: 150,
-        height: 180,
-        padding: 5,
+        width: 170,
+        height: 200,
+        padding: 8,
         borderColor: '#a2d8beff', 
         borderWidth: 0.7,
         borderRadius: 20,
         gap: 10
     },
     optionactive:{
-       color: '#003119ff',
+        color: '#003119ff',
         backgroundColor: '#04a2adff',
         margin: 5, 
-        width: 150,
-        height: 180,
-        padding: 5,
+        width: 170,
+        height: 200,
+        padding: 8,
         borderColor: '#a2d8beff', 
         borderWidth: 0.7,
         borderRadius: 20,
@@ -133,6 +133,7 @@ const styles = StyleSheet.create({
     },
     optiontitle:{
         color: '#363636ff',
+        padding: 5,
         fontSize: 16,
         fontWeight: "bold",
         fontFamily: "serif",
@@ -142,7 +143,8 @@ const styles = StyleSheet.create({
     },
      optiontitleactive:{
         color: '#ffffffff',
-        fontSize: 17,
+        padding: 5,
+        fontSize: 16,
         fontWeight: "bold",
         fontFamily: "serif",
         textAlign: 'center',
@@ -152,7 +154,7 @@ const styles = StyleSheet.create({
     optiondescription:{
         color: '#6b6b6bff',
         fontFamily: "serif",
-        fontSize: 15,
+        fontSize: 14,
         fontWeight: "200",
         marginBottom: 30,
         textAlign: 'center'
@@ -160,7 +162,7 @@ const styles = StyleSheet.create({
     optiondescriptionactive:{
         color: '#e4e4e4ff',
         fontFamily: "serif",
-        fontSize: 15,
+        fontSize: 14,
         fontWeight: "200",
         marginBottom: 30,
         textAlign: 'center'

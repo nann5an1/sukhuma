@@ -67,6 +67,9 @@ export default function budget(){
                 keyExtractor={(item) => item.id.toString()}
                 contentContainerStyle={styles.optioncontainer}
                 />
+                <View style={styles.infocontainer}>
+                    <Text style={styles.infotext}>💡   Effective skincare doesn't have to be expensive!</Text>
+                </View>
                 <View style={styles.buttons}>
                     <Pressable style={styles.backbutton}
                     onPress={() => router.push("/lifestyle")}><Text style={{fontSize: 15}}>Back</Text>
@@ -88,7 +91,8 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: "bold",
         fontFamily: "serif",
-        marginVertical: 20
+        marginVertical: 20,
+        marginTop: 30
     },
     description:{
         color: '#2b2a2aff',
@@ -105,11 +109,11 @@ const styles = StyleSheet.create({
     option:{
         justifyContent: "center",
         alignContent: "center",
+        backgroundColor: "#f5faf7ff",
         width: 300,
-        height: 90,
         padding: 10,
         borderWidth: 0.8,
-        borderColor: "#c1c1c1ff",
+        borderColor: "#a2d8beff",
         borderRadius: 20,
         marginVertical: 10,
     },
@@ -117,7 +121,6 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignContent: "center",
         width: 300,
-        height: 90,
         padding: 10,
         borderWidth: 0.8,
         borderColor: "#2d8ea2ff",
@@ -128,7 +131,7 @@ const styles = StyleSheet.create({
     optiontitleactive:{
         textAlign: 'center',
         fontFamily: "serif",
-        fontSize: 18,
+        fontSize: 16,
         fontWeight: "bold",
         color: '#ffffffff',
         marginBottom: 5
@@ -142,7 +145,7 @@ const styles = StyleSheet.create({
     title: {
         textAlign: 'center',
         color: "#008d97ff",
-        fontSize: 17,
+        fontSize: 16,
         fontWeight: "bold",
         fontFamily: "serif",
         marginBottom: 5
@@ -153,6 +156,21 @@ const styles = StyleSheet.create({
         fontSize: 15,
         fontWeight: "semibold",
         fontFamily: "serif"
+    },
+    infocontainer: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: 320,
+        height: 50,
+        padding: 5,
+        borderRadius: 15,
+        borderWidth: 0.8,
+        borderColor: "#008d97ff",
+    },
+    infotext: {
+        textAlign: 'center',
+        fontFamily: "serif",
+        fontSize: 14
     },
     backbutton:{
         paddingVertical: 10, 

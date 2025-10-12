@@ -37,16 +37,16 @@ const styles = StyleSheet.create({
     marginTop: 50
   },
   title:{
-    color: '#008d97ff',
+    color: '#04a2adff',
     fontSize: 30,
     fontWeight: "bold",
     fontFamily: "serif"
   },
   info:{
-    backgroundColor: '#e9fff4ff',
+    backgroundColor: '#f5faf7ff',
     marginVertical: 5, 
     padding: 10, 
-    borderColor: '#004b27ff', 
+    borderColor: '#bccecaff', 
     borderWidth: 0.7,
     borderRadius: 20,
     letterSpacing: 1,
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     paddingVertical: 20, 
     paddingHorizontal: 40,
     borderRadius: 20,
-    backgroundColor: '#12686eff'
+    backgroundColor: '#04a2adff'
   }
 }
 );

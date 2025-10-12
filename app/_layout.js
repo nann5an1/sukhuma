@@ -16,6 +16,7 @@ export default function RootLayout() {
         <Stack.Screen name="preferences" options={{ title: "Preferences" }} />
         <Stack.Screen name="lifestyle" options={{ title: "Lifestyle" }} />
         <Stack.Screen name="budget" options={{ title: "Budget" }} />
+        <Stack.Screen name="routine" options={{ title: "Routine" }} />
       </Stack>
     </SkinDataProvider>
   );

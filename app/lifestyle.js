@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
         borderWidth: 0.7,
         borderColor: '#b8b8b8ff',
         width : 170,
-        height: 53
+        height: 50
     },
     optionactive:{
         justifyContent: 'center',
@@ -160,12 +160,11 @@ const styles = StyleSheet.create({
         backgroundColor: '#eea53eff',
         gap: 8,
         padding: 5,
-        marginHorizontal: 10,
+        marginHorizontal: 8,
         marginVertical: 2,
         borderRadius: 20,
         width : 170,
-        height: 53,
-        transform: [{scale: 1.06}]
+        height: 50
     },
     optioninfoactive:{
         color: '#e3e3e3ff',

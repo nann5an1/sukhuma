@@ -59,6 +59,8 @@ const data = [
 export default function concerns(){
     const {skinData, setSkinData} = useContext(SkinDataContext);
     const [skinConcerns, setSkinConcerns] = useState([]);
+    const [selectCount, setSelectCount] = useState(0);
+
      useEffect(() => {
         if (skinData?.skinconcerns && Array.isArray(skinData.skinconcerns) && skinData.skinconcerns.length > 0) {
             setSkinConcerns(skinData.skinconcerns);
@@ -70,10 +72,15 @@ export default function concerns(){
         router.push("/preferences");
     }
 
-
     function toggleSkinConcerns(concerns){
-        if(skinConcerns.includes(concerns)) setSkinConcerns(skinConcerns.filter((item) => item !== concerns));
-        else setSkinConcerns([...skinConcerns, concerns]); 
+        if(skinConcerns.includes(concerns)){
+            setSkinConcerns(skinConcerns.filter((item) => item !== concerns));
+            if (selectCount != 0)setSelectCount(selectCount - 1);
+        }
+        else{
+            setSkinConcerns([...skinConcerns, concerns]);
+            setSelectCount(selectCount + 1);
+        }
     }
 
     function renderItem({item}){
@@ -101,7 +108,9 @@ export default function concerns(){
                 >
                 </FlatList>
                 <View style={styles.status}>
-                    <Text style={{fontSize: 15}}>No concerns? That's great! You can continue without selecting any.</Text>
+                    {selectCount > 0 ? <Text style={styles.statusinfo}>You've selected {selectCount} concern(s)</Text> :
+                    <Text style={styles.statusinfo}>No concerns? That's great! You can continue without selecting any.</Text>}
+                    
                 </View>
                 <View style={styles.buttons}>
                     <Pressable style={styles.backbutton}
@@ -125,7 +134,8 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: "bold",
         fontFamily: "serif",
-        marginVertical: 20
+        marginVertical: 30,
+        marginTop: 50
     },
     description:{
         color: '#767676ff',
@@ -138,35 +148,34 @@ const styles = StyleSheet.create({
     option:{
         justifyContent: 'center',
         marginHorizontal: 10,
-        backgroundColor: '#f5f5f5',
+        backgroundColor: '#f5faf7ff',
         padding: 10,
         width: 150,
         height:50,
         borderRadius: 20,
-        borderWidth: 1,
-        borderColor: '#04a2adff',
+        borderWidth: 0.8,
+        borderColor: '#a2d8beff',
     },
     optionactive:{
         textAlign: 'center',
         backgroundColor: '#04a2adff',
         padding: 10,
         width: 150,
+        height:50,
         borderRadius: 20,
         borderWidth: 1,
-        borderColor: '#04a2adff',
-        transform: [{scale: 1.06}]
+        borderColor: '#04a2adff'
     },
     optiontitle:{
         textAlign: 'center',
         fontFamily: "serif",
-        fontSize: 16,
+        fontSize: 15,
         color: '#3b494aff'
     },
     optiontitleactive:{
         textAlign: 'center',
         fontFamily: "serif",
         fontSize: 15,
-        fontWeight: "bold",
         color: '#ffffffff'
     },
     listcontainer:{
@@ -175,13 +184,22 @@ const styles = StyleSheet.create({
         gap: 10,
     },
     status:{
+        justifyContent: 'center',
+        alignContent: 'center',
         marginVertical: 30,
         width: 300,
-        borderColor: '#3f4b4cff',
+        height: 80,
+        borderColor: '#04a2adff',
         borderStyle: 'dashed',
         borderWidth: 1,
         borderRadius: 20,
         padding: 20
+    },
+    statusinfo:{
+        textAlign: 'center',
+        color: '#3f4b4cff',
+        fontFamily: "serif",
+        fontSize: 15
     },
      buttons:{
         marginVertical: 30,

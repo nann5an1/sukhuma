@@ -190,11 +190,11 @@ const styles = StyleSheet.create({
         backgroundColor: '#eea53eff',
         gap: 8,
         padding: 5,
-        marginHorizontal: 10,
+        marginHorizontal: 8,
         marginVertical: 2,
         borderRadius: 20,
         width : 170,
-        height: 53,
+        height: 50,
         transform: [{scale: 1.04}]
     },
     optioninfoactive:{
