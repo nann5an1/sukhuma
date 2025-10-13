@@ -1,4 +1,4 @@
-# 🌸 Sukhuma – AI-Based Skincare Routine Generator
+# Sukhuma – AI-Based Skincare Routine Generator
 
 **Sukhuma** is a personal project that uses **AI-driven questionnaire analysis** to generate personalized skincare routines.  
 It combines a **React Native** frontend, an **Express.js** backend, and the **Llama 3.3 70B model (via Groq)** for advanced natural language understanding and skincare recommendation logic.
