@@ -102,7 +102,7 @@ export default function preferences(){
                 <View style={styles.inputContainer}>
                     <TextInput
                         style={styles.input}
-                        placeholder="Enter allergies or ingredients to avoid. e.g, fragrance, retinol, vitamin c, alchohol..."
+                        placeholder="e.g, fragrance, retinol, vitamin c, alchohol..."
                         onChange={() => setAllergyVal(allergyVal)}
                     />
                     <Text style={styles.inputContainerText}>Leave blank if you have no allergies</Text>
