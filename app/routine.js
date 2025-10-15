@@ -2,7 +2,7 @@ import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import {useState, useContext, useEffect} from 'react';
 import {SkinDataContext} from '../context/SkinDataContext';
 import {router} from 'expo-router';
-import { Text, StyleSheet, View, FlatList, ActivityIndicator } from "react-native";
+import { Text, StyleSheet, View, FlatList, ActivityIndicator, Pressable } from "react-native";
 import { RefreshCw, Download, Sun, Moon, Calendar, Lightbulb, Sparkles, Heart, ShoppingBag } from "lucide-react-native";
 
 export default function Routine(){
@@ -19,8 +19,9 @@ export default function Routine(){
 
     async function fetchFromLlama(){
         try {
+            console.log("Skin data: ", skinData);
             setLoading(true);
-            const response = await fetch("http://192.168.0.2:3000/skincareroutine", {
+            const response = await fetch("http://192.168.0.14:3000/skincareroutine", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -229,6 +230,15 @@ export default function Routine(){
                     keyExtractor={(item, index) => String(index)}
                     contentContainerStyle={styles.flatlistcontainer}
                 />
+                <View style={styles.buttons}>
+                    <Pressable style={styles.backbutton}
+                    onPress={() => router.push("/skin_types")}><Text style={{fontSize: 15}}>Start Over</Text>
+                    </Pressable>
+                    <Pressable style={styles.nextbutton}
+                    onPress={() => router.push("/budget")}
+                    ><Text style={{color: '#ffffffff', fontSize: 15}}>Save Routine</Text>
+                    </Pressable>
+                </View>
             </SafeAreaView>
         </SafeAreaProvider>
     )

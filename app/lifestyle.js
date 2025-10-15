@@ -1,4 +1,4 @@
-import { Text, StyleSheet, View, Pressable, FlatList, TextInput } from "react-native";
+import { Text, StyleSheet, View, Pressable, FlatList, TextInput, Alert } from "react-native";
 import {useState, useContext, useEffect} from 'react';
 import {SkinDataContext} from '../context/SkinDataContext';
 import {router} from 'expo-router';
@@ -47,8 +47,7 @@ export default function lifestyle(){
     }
 
     function handleNext(){
-        const dietary = dietaryVal.split(','); //fragrance, retinol
-        setSkinData({...skinData, diet: dietary, lifestyle: lifestyleList});
+        setSkinData({...skinData, diet: dietaryVal.split(","), lifestyle: lifestyleList});
         router.push("/budget");
     }
 
@@ -69,8 +68,8 @@ export default function lifestyle(){
                 <View style={styles.inputContainer}>
                     <TextInput
                         style={styles.input}
-                        placeholder="e.g, High sugar, lots of diary, salt, vegettarian, plenty of water, fruits and vegetables..."
-                        onChange={() => setDietaryVal(dietaryVal)}
+                        placeholder="e.g, High sugar, lots of diary, salt, vegetarian, plenty of water, fruits and vegetables..."
+                        onChangeText={setDietaryVal}
                     />
                     <Text style={styles.inputContainerText}>optional, but helps us give better recommendations</Text>
                 </View>

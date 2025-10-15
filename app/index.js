@@ -1,5 +1,18 @@
 import { StyleSheet, Text, View, Button, Pressable } from 'react-native';
 import { router } from 'expo-router';
+// import Entypo from '@expo/vector-icons/Entypo';
+// import * as SplashScreen from 'expo-splash-screen';
+
+
+// Keep the splash screen visible while we fetch resources
+// SplashScreen.preventAutoHideAsync();
+
+// // Set the animation options. This is optional.
+// SplashScreen.setOptions({
+//   duration: 1000,
+//   fade: true,
+// });
+
 
 export default function App() {
   return (
@@ -62,3 +75,15 @@ const styles = StyleSheet.create({
   }
 }
 );
+
+
+// export default function App() {
+
+
+//   return (
+//     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+//       <Text>SplashScreen Demo! 👋</Text>
+//       <Entypo name="rocket" size={30} />
+//     </View>
+//   );
+// }

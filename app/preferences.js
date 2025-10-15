@@ -80,7 +80,7 @@ export default function preferences(){
     }
 
     function handleNext(){
-        const allergies = allergyVal.split(','); //fragrance, retinol
+        const allergies = allergyVal.split(','); //fragrance, retinol //if cannot split by comma will use the entire string into the array
         setSkinData({...skinData, allergies: allergies, preferences: preferencesList});
         router.push("/lifestyle");
     }
@@ -103,7 +103,7 @@ export default function preferences(){
                     <TextInput
                         style={styles.input}
                         placeholder="e.g, fragrance, retinol, vitamin c, alchohol..."
-                        onChange={() => setAllergyVal(allergyVal)}
+                        onChangeText={setAllergyVal}
                     />
                     <Text style={styles.inputContainerText}>Leave blank if you have no allergies</Text>
                 </View>

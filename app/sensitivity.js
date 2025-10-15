@@ -27,7 +27,7 @@ export default function skin_types() {
             <Pressable 
                 style={[styles.option, isNotSensitive ? styles.optionactive : styles.option]} onPress={() => {isNotSensitive ? handleSkinType("") : handleSkinType("not")}}>
                 <View style={styles.optioncontainer}>
-                    <Text style={styles.emoji}>💪</Text>
+                    {/* <Text style={styles.emoji}>💪</Text> */}
                     <View>
                         <Text style={[styles.optiontitle, isNotSensitive ? styles.optiontitleactive  : styles.optiontitle]}>Not Sensitive</Text>
                         <Text style={[styles.optioninfo, isNotSensitive ? styles.optioninfoactive  : styles.optioninfo]}>My skin tolerate most products</Text>
@@ -36,7 +36,7 @@ export default function skin_types() {
             </Pressable>
             <Pressable style={[styles.option, isSlightly ? styles.optionactive : styles.option]} onPress={() => isSlightly ? handleSkinType("") : handleSkinType("slightly")}>
                 <View style={styles.optioncontainer}>
-                    <Text style={styles.emoji}>🤔</Text>
+                    {/* <Text style={styles.emoji}>🤔</Text> */}
                     <View>
                         <Text style={[styles.optiontitle,isSlightly ? styles.optiontitleactive : styles.optiontitle]}>Slightly Sensitive</Text>
                         <Text  style={[styles.optioninfo, isSlightly ? styles.optioninfoactive : styles.optioninfo]}>Occational reactions to new products</Text>
