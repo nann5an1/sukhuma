@@ -24,7 +24,7 @@ export default function skin_types() {
 
     return (
         <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#ffffffff'}}>
-            <Progress.Bar progress={0.3} width={200} />
+            <Progress.Bar progress={0.125} width={300} color='#0097f5ff' animationType='spring'/>
             <Text style={styles.question}>What's your skin type?</Text>
             <Text style={styles.description}>Choose the one that best describes your skin</Text>
             <Pressable 

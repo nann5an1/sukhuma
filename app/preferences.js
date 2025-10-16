@@ -3,6 +3,7 @@ import {useState, useContext, useEffect} from 'react';
 import {SkinDataContext} from '../context/SkinDataContext';
 import {router} from 'expo-router';
 import {SafeAreaView, SafeAreaProvider} from 'react-native-safe-area-context';
+import * as Progress from 'react-native-progress';
 
 const data = [
     {
@@ -97,8 +98,12 @@ export default function preferences(){
     return (
         <SafeAreaProvider>
             <SafeAreaView style={{flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: "#ffffff"}}>
-                <Text style={styles.question}>Any allergies or ingredients to avoid?</Text>
-                <Text style={styles.description}>We'll exclude these from recommendations</Text>
+                <View style={styles.pageheader}>
+                    <Progress.Bar progress={0.75} width={300} color='#0097f5ff' animationType='spring'/>
+                    <Text style={styles.question}>Any allergies or ingredients to avoid?</Text>
+                    <Text style={styles.description}>We'll exclude these from recommendations</Text>
+                </View>
+                
                 <View style={styles.inputContainer}>
                     <TextInput
                         style={styles.input}
@@ -133,6 +138,11 @@ export default function preferences(){
 }
 
 const styles = StyleSheet.create({
+     pageheader:{
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: 30
+    },
     question:{
         textAlign: 'center',
         color: '#ce6915ff',

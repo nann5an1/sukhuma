@@ -3,6 +3,7 @@ import {useState, useContext, useEffect} from 'react';
 import {SkinDataContext} from '../context/SkinDataContext';
 import {router} from 'expo-router';
 import {SafeAreaView, SafeAreaProvider} from 'react-native-safe-area-context';
+import * as Progress from 'react-native-progress';
 
 const data = [
     {
@@ -61,8 +62,11 @@ export default function skincare_exp(){
     return (
         <SafeAreaProvider>
             <SafeAreaView style={{flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#ffffffff'}}>
-                <Text style={styles.question}>What's your current skincare experience?</Text>
-                <Text style={styles.description}>We'll match recommendations to your level</Text>
+                <View style={styles.pageheader}>
+                    <Progress.Bar progress={0.375} width={300} color='#0097f5ff' animationType='spring'/>
+                    <Text style={styles.question}>What's your current skincare experience?</Text>
+                    <Text style={styles.description}>We'll match recommendations to your level</Text>
+                </View>
                 <FlatList
                 data={data}
                 renderItem={renderItem}
@@ -85,34 +89,38 @@ export default function skincare_exp(){
 }
 
 const styles = StyleSheet.create({
+    pageheader:{
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: 30
+    },
     question:{
         textAlign: 'center',
         color: '#04a2adff',
         fontSize: 20,
         fontWeight: "bold",
         fontFamily: "serif",
-        marginVertical: 20
+        marginBottom: 20,
+        marginTop: 30
     },
     description:{
         color: '#767676ff',
         fontFamily: "serif",
         fontSize: 15,
-        fontWeight: "200",
-        marginBottom: 30
+        fontWeight: "200"
     },
      listContainer:{
-        marginVertical: 10,
+        marginTop: 40,
         justifyContent: 'center',
         alignItems: 'center',
-        gap: 5,
-        widht: 500
+        gap: 5
     },
     option:{
         color: '#003119ff',
         backgroundColor: '#f5faf7ff',
         margin: 5, 
         width: 170,
-        height: 200,
+        height: 180,
         padding: 8,
         borderColor: '#a2d8beff', 
         borderWidth: 0.7,
@@ -124,7 +132,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#04a2adff',
         margin: 5, 
         width: 170,
-        height: 200,
+        height: 180,
         padding: 8,
         borderColor: '#a2d8beff', 
         borderWidth: 0.7,
@@ -209,7 +217,7 @@ const styles = StyleSheet.create({
         borderColor: '#ccf4f7ff'
     },
     buttons:{
-        marginVertical: 30,
+        marginBottom: 30,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',

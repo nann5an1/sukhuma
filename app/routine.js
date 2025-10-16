@@ -21,7 +21,7 @@ export default function Routine(){
         try {
             console.log("Skin data: ", skinData);
             setLoading(true);
-            const response = await fetch("http://192.168.0.14:3000/skincareroutine", {
+            const response = await fetch("http://192.168.0.3:3000/skincareroutine", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -192,6 +192,21 @@ export default function Routine(){
         );
     }
 
+
+    const renderButtons = () => {
+        return ( 
+       <View style={styles.buttons}>
+            <Pressable style={styles.backbutton}
+            onPress={() => router.push("/skin_types")}><Text style={{fontSize: 15}}>Start Over</Text>
+            </Pressable>
+            <Pressable style={styles.nextbutton}
+            onPress={() => saveAsPDF()}
+            ><Text style={{color: '#ffffffff', fontSize: 15}}><Download size={18}/>Save Routine As PDF</Text>
+            </Pressable>
+        </View>
+        );
+    }
+
     // Build allData only after data is loaded
     const allData = [
         { type: 'header' },
@@ -201,6 +216,7 @@ export default function Routine(){
         { type: 'tipsHeader' },
         ...(treatments.tips || []).map((item, index) => ({ type: 'tips', data: item, index })),
         { type: 'important' },
+        { type: 'buttons' },
     ];
 
     const renderAllItems = ({ item }) => {
@@ -218,6 +234,8 @@ export default function Routine(){
             return renderTips({item: item.data});
         } else if(item.type === 'important') {
             return renderImportant();
+        } else if(item.type == 'buttons'){
+            return renderButtons();
         }
     };
 
@@ -230,15 +248,6 @@ export default function Routine(){
                     keyExtractor={(item, index) => String(index)}
                     contentContainerStyle={styles.flatlistcontainer}
                 />
-                <View style={styles.buttons}>
-                    <Pressable style={styles.backbutton}
-                    onPress={() => router.push("/skin_types")}><Text style={{fontSize: 15}}>Start Over</Text>
-                    </Pressable>
-                    <Pressable style={styles.nextbutton}
-                    onPress={() => router.push("/budget")}
-                    ><Text style={{color: '#ffffffff', fontSize: 15}}>Save Routine</Text>
-                    </Pressable>
-                </View>
             </SafeAreaView>
         </SafeAreaProvider>
     )
@@ -439,5 +448,27 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         borderColor: "#f84d44ff",
         marginTop: 20
+    },
+    backbutton:{
+        paddingVertical: 10, 
+        paddingHorizontal: 40,
+        borderColor: '#767676ff',
+        borderWidth: 1,
+        borderRadius: 10,
+    },
+    nextbutton:{
+        paddingVertical: 10, 
+        paddingHorizontal: 40,
+        backgroundColor: '#04a2adff',
+        borderRadius: 10,
+        borderWidth: 1,
+        borderColor: '#04a2adff'
+    },
+    buttons:{
+        marginVertical: 30,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: 30
     }
 });

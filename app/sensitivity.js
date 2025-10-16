@@ -21,7 +21,7 @@ export default function skin_types() {
 
     return (
         <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#ffffffff'}}>
-            <Progress.Bar progress={0.3} width={200} />
+            <Progress.Bar progress={0.25} width={300} color='#0097f5ff' animationType='spring'/>
             <Text style={styles.question}>How sensitive is your skin?</Text>
             <Text style={styles.description}>This helps us recommend gentle products</Text>
             <Pressable 
@@ -153,7 +153,8 @@ export default function skin_types() {
         borderColor: '#ccf4f7ff'
     },
     buttons:{
-        marginVertical: 30,
+        marginTop: 100,
+        marginBottom: 30,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',

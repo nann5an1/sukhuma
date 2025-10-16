@@ -4,6 +4,7 @@ import {SkinDataContext} from '../context/SkinDataContext';
 import {router} from 'expo-router';
 import {SafeAreaView, SafeAreaProvider} from 'react-native-safe-area-context';
 import Dropdown from 'react-native-input-select';
+import * as Progress from 'react-native-progress';
 
 const data = [
     {
@@ -56,8 +57,12 @@ export default function details(){
     return (
         <SafeAreaProvider>
             <SafeAreaView style={{flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: "#ffffff"}}>
-                <Text style={styles.question}>What's your age range?</Text>
-                <Text style={styles.description}>Age affects your skin's needs</Text>
+                <View style={styles.pageheader}>
+                    <Progress.Bar progress={0.5} width={300} color='#0097f5ff' animationType='spring'/>
+                    <Text style={styles.question}>What's your age range?</Text>
+                    <Text style={styles.description}>Age affects your skin's needs</Text>
+                </View>
+                
                 <View style={styles.agedropdown}>
                     <Dropdown
                         label="Knowing your age would help us analyze better"
@@ -99,13 +104,18 @@ export default function details(){
 }
 
 const styles = StyleSheet.create({
+    pageheader:{
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: 30
+    },
     question:{
         textAlign: 'center',
         color: '#04a2adff',
         fontSize: 20,
         fontWeight: "bold",
         fontFamily: "serif",
-        marginVertical: 30,
+        marginVertical: 20,
     },
     description:{
         color: '#767676ff',

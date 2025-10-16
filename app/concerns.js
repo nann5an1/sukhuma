@@ -3,6 +3,8 @@ import {useState, useContext, useEffect} from 'react';
 import {SkinDataContext} from '../context/SkinDataContext';
 import {router} from 'expo-router';
 import {SafeAreaView, SafeAreaProvider} from 'react-native-safe-area-context';
+import * as Progress from 'react-native-progress';
+
 
 const data = [
     {
@@ -62,13 +64,14 @@ export default function concerns(){
     const [selectCount, setSelectCount] = useState(0);
 
      useEffect(() => {
-        if (skinData?.skinconcerns && Array.isArray(skinData.skinconcerns) && skinData.skinconcerns.length > 0) {
-            setSkinConcerns(skinData.skinconcerns);
+        if (skinData?.skinConcerns && Array.isArray(skinData.skinConcerns) && skinData.skinConcerns.length > 0) {
+            setSkinConcerns(skinData.skinConcerns);
         }
     }, []);
 
     function handleSkinData(){
-        setSkinData({...skinData, skinconcerns: skinConcerns});
+        console.log("skinConcernsArray in handleSkinData: ", skinConcerns);
+        setSkinData({...skinData, skinConcerns: skinConcerns});
         router.push("/preferences");
     }
 
@@ -85,6 +88,7 @@ export default function concerns(){
 
     function renderItem({item}){
         const valueExists = skinConcerns.includes(item.key);
+        // console.log("valueExists: ", valueExists);
         return(
             <Pressable 
             onPress={() => toggleSkinConcerns(item.key)}
@@ -97,8 +101,11 @@ export default function concerns(){
     return(
         <SafeAreaProvider>
             <SafeAreaView style={{flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: '#ffffffff'}}>
-                <Text style={styles.question}>What are your main concerns?</Text>
-                <Text style={styles.description}>Select all that apply (or skip if none)</Text>
+                <View style={styles.pageheader}>
+                    <Progress.Bar progress={0.625} width={300} color='#0097f5ff' animationType='spring'/>
+                    <Text style={styles.question}>What are your main concerns?</Text>
+                    <Text style={styles.description}>Select all that apply (or skip if none)</Text>
+                </View>
                 <FlatList
                 scrollEnabled={false}
                 data={data}
@@ -117,7 +124,7 @@ export default function concerns(){
                     onPress={() => router.push("/details")}><Text style={{fontSize: 15}}>Back</Text>
                     </Pressable>
                     <Pressable style={styles.nextbutton}
-                    onPress={() => handleSkinData(skinConcerns)}
+                    onPress={handleSkinData}
                     ><Text style={{color: '#ffffffff', fontSize: 15}}>Continue</Text>
                     </Pressable>
                 </View>
@@ -128,14 +135,18 @@ export default function concerns(){
 }
 
 const styles = StyleSheet.create({
+    pageheader:{
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: 30
+    },
     question:{
         textAlign: 'center',
         color: '#04a2adff',
         fontSize: 20,
         fontWeight: "bold",
         fontFamily: "serif",
-        marginVertical: 30,
-        marginTop: 50
+        marginVertical: 20
     },
     description:{
         color: '#767676ff',
