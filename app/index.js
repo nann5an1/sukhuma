@@ -1,42 +1,21 @@
-import { StyleSheet, Text, View, Button, Pressable } from 'react-native';
+import { StyleSheet, Image, View } from 'react-native';
 import { router } from 'expo-router';
-// import Entypo from '@expo/vector-icons/Entypo';
-// import * as SplashScreen from 'expo-splash-screen';
+import { useEffect } from 'react';
 
 
-// Keep the splash screen visible while we fetch resources
-// SplashScreen.preventAutoHideAsync();
+export default function App(){
+  useEffect(() => {
+    const timer = setTimeout(() => {
+    router.replace("/home")
+  }, 3000); //in 3000 milliseconds = 3 seconds
 
-// // Set the animation options. This is optional.
-// SplashScreen.setOptions({
-//   duration: 1000,
-//   fade: true,
-// });
+    return () => clearTimeout(timer);
+  }, []);
 
-
-export default function App() {
+  
   return (
-     <View style={styles.container}>
-            <View>
-                <Text style={styles.title}>Welcome to Sukhuma</Text>
-            </View>
-            <View style={{marginVertical: 40, flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
-                <Text style={{marginLeft: 20, marginRight: 20, paddingVertical: 40, color: '#767676ff', fontSize: 18, fontFamily: "serif", textAlign: 'center'}}>Your AI-powered skincare companion. Get a personalized routine designed just for you.</Text>
-            </View>
-    
-            <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 10}}>
-                <Text style={styles.info}>AI Personalized</Text>
-               <Text style={styles.info}>2 Minutes</Text>
-               <Text style={styles.info}>Science Backed</Text>
-            </View>
-            <View style={{marginVertical: 30, padding: 10}}>
-                <Pressable style={styles.button}
-                title="Start Your Glow Journey"
-                onPress={() => router.push("/skin_types")}>
-                    <Text style={{color: '#ffffffff', fontSize: 15, fontWeight: "bold", fontFamily: "serif"}}>Start Your Glow Journey</Text>
-                </Pressable>
-            </View>
-            
+    <View style={styles.container}>
+        <Image style={styles.image} source={require('../assets/sukhuma.jpeg')}/>  
     </View>
   );
 }
@@ -44,46 +23,14 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ffffffff',
+    backgroundColor: '#ffffff',
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 50
   },
-  title:{
-    color: '#04a2adff',
-    fontSize: 30,
-    fontWeight: "bold",
-    fontFamily: "serif"
-  },
-  info:{
-    backgroundColor: '#f5faf7ff',
-    marginVertical: 5, 
-    padding: 10, 
-    borderColor: '#bccecaff', 
-    borderWidth: 0.7,
-    borderRadius: 20,
-    letterSpacing: 1,
-    fontWeight: "400",
-    fontSize: 13
-},
-  button: {
-    color: '#ffffffff',
-    paddingVertical: 20, 
-    paddingHorizontal: 40,
-    borderRadius: 20,
-    backgroundColor: '#04a2adff'
+  image: {
+    borderRadius: 12,
+    width: 130,
+    height: 130
   }
-}
-);
-
-
-// export default function App() {
-
-
-//   return (
-//     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-//       <Text>SplashScreen Demo! 👋</Text>
-//       <Entypo name="rocket" size={30} />
-//     </View>
-//   );
-// }
+});

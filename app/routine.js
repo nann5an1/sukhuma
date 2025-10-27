@@ -2,15 +2,19 @@ import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import {useState, useContext, useEffect} from 'react';
 import {SkinDataContext} from '../context/SkinDataContext';
 import {router} from 'expo-router';
-import { Text, StyleSheet, View, FlatList, ActivityIndicator, Pressable } from "react-native";
+import { Text, StyleSheet, View, FlatList, ActivityIndicator, Pressable, Alert } from "react-native";
 import { RefreshCw, Download, Sun, Moon, Calendar, Lightbulb, Sparkles, Heart, ShoppingBag } from "lucide-react-native";
+import * as Print from 'expo-print';
+import * as Sharing from 'expo-sharing';
+import * as FileSystem from 'expo-file-system';
 
 export default function Routine(){
-    const {skinData} = useContext(SkinDataContext);
+    const {skinData, setSkinData} = useContext(SkinDataContext);
     const [data, setData] = useState([]);
     const [treatments, setTreatments] = useState({ weekelytreatments: [], tips: [] });
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [generatingPDF, setGeneratingPDF] = useState(false);
 
     useEffect(() => {
         console.log("Skindata in routine output: ", skinData);    
@@ -21,7 +25,7 @@ export default function Routine(){
         try {
             console.log("Skin data: ", skinData);
             setLoading(true);
-            const response = await fetch("http://192.168.0.3:3000/skincareroutine", {
+            const response = await fetch("http://192.168.0.8:3000/skincareroutine", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -58,6 +62,174 @@ export default function Routine(){
             setLoading(false);
         }
     }
+
+    const generateHTMLContent = () => {
+        let routinesHTML = '';
+        
+        // Generate routines (Morning and Evening)
+        data.forEach(timeSection => {
+            const isMorning = timeSection.time === "Morning";
+            const bgColor = isMorning ? "#fff7d8" : "#e9deff";
+            const borderColor = isMorning ? "#fbb32e" : "#5e3aa4";
+            const textColor = isMorning ? "#fe942a" : "#5e3aa4";
+            const iconColor = isMorning ? "#f9830e" : "#5e3aa4";
+            const icon = isMorning ? "☀️" : "🌙";
+            
+            routinesHTML += `
+                <div style="margin-top: 20px; margin-bottom: 25px; padding: 10px; background-color: ${bgColor}; border: 1px solid ${borderColor}; border-radius: 10px; text-align: center;">
+                    <h2 style="color: ${textColor}; font-family: serif; margin: 0;">${icon} ${timeSection.time} Routine</h2>
+                </div>
+            `;
+            
+            timeSection.routine.forEach(item => {
+                const idBg = isMorning ? "#fcd691" : "#e4d0fb";
+                const idColor = isMorning ? "#f68802" : "#5200af";
+                const productBg = isMorning ? "#fff6e4" : "#f7f0ff";
+                const productBorder = isMorning ? "#fbb32e" : "#5200af";
+                
+                routinesHTML += `
+                    <div style="display: flex; margin: 20px 0; gap: 10px;">
+                        <div style="min-width: 30px; height: 30px; background-color: ${idBg}; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                            <strong style="color: ${idColor}; font-size: 17px;">${item.id}</strong>
+                        </div>
+                        <div style="flex: 1;">
+                            <h3 style="color: #3b3b3b; font-family: serif; margin: 0 0 10px 0;">${item.title}</h3>
+                            <p style="color: #848383; font-family: serif; margin: 0 0 10px 0; font-size: 14px;">${item.info}</p>
+                            <p style="color: #555; font-family: serif; font-style: italic; font-size: 14px; margin: 10px 0 5px 0;">🛍️ Recommended Products:</p>
+                            ${item.products ? item.products.map(product => `
+                                <div style="background-color: ${productBg}; border: 1px solid ${productBorder}; border-radius: 10px; padding: 5px; margin: 5px 0; text-align: center;">
+                                    <span style="color: #291f12; font-size: 13px;">${product}</span>
+                                </div>
+                            `).join('') : ''}
+                        </div>
+                    </div>
+                `;
+            });
+        });
+
+        // Generate weekly treatments
+        let treatmentsHTML = '';
+        if (treatments.weekelytreatments && treatments.weekelytreatments.length > 0) {
+            treatmentsHTML = `
+                <div style="margin: 30px 0; padding: 10px; background-color: #e6fff8; border: 1px solid #04a2ad; border-radius: 10px; text-align: center;">
+                    <h2 style="color: #04a2ad; font-family: serif; margin: 0;">📅 Weekly Treatment</h2>
+                </div>
+            `;
+            
+            treatments.weekelytreatments.forEach(item => {
+                treatmentsHTML += `
+                    <div style="display: flex; margin: 20px 0; gap: 10px; align-items: flex-start;">
+                        <div style="background-color: #e6fff8; border: 1px solid #04a2ad; border-radius: 10px; padding: 6px; min-width: 80px; text-align: center;">
+                            <strong style="color: #04a2ad; font-size: 12px; font-family: serif;">${item.times}</strong>
+                        </div>
+                        <div style="flex: 1;">
+                            <h3 style="color: #3b3b3b; font-family: serif; margin: 0 0 10px 0;">${item.treatment}</h3>
+                            <p style="color: #3b3b3b; font-family: serif; margin: 0; font-size: 13px;">${item.info}</p>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // Generate tips
+        let tipsHTML = '';
+        if (treatments.tips && treatments.tips.length > 0) {
+            tipsHTML = `
+                <div style="margin: 30px 0; padding: 10px; background-color: #fff6ca; border: 1px solid #f3b600; border-radius: 10px; text-align: center;">
+                    <h2 style="color: #ffbf00; font-family: serif; margin: 0;">💡 Pro Tips for Better Results</h2>
+                </div>
+            `;
+            
+            treatments.tips.forEach(item => {
+                tipsHTML += `
+                    <div style="background-color: #fff8d7; border: 1px solid #fbb32e; border-radius: 10px; padding: 10px; margin: 10px 0;">
+                        <p style="color: #848383; font-family: serif; margin: 0; font-size: 14px;">${item.info}</p>
+                    </div>
+                `;
+            });
+        }
+
+        return `
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <meta charset="utf-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <style>
+                    body {
+                        font-family: serif;
+                        padding: 20px;
+                        max-width: 800px;
+                        margin: 0 auto;
+                    }
+                </style>
+            </head>
+            <body>
+                <div style="text-align: center; margin-bottom: 30px;">
+                    <div style="width: 50px; height: 50px; background-color: #04a2ad; border-radius: 50%; margin: 50px auto 20px; display: flex; align-items: center; justify-content: center; color: white; font-size: 30px;">
+                        ❤️
+                    </div>
+                    <h1 style="color: #04a2ad; font-family: serif; margin: 20px 0;">Your Perfect Routine is Ready!</h1>
+                    <p style="color: #2b2a2a; font-family: serif; font-size: 15px;">Personalized for you based on your skincare needs</p>
+                </div>
+                
+                ${routinesHTML}
+                ${treatmentsHTML}
+                ${tipsHTML}
+                
+                <div style="background-color: #ffd4d4; border: 1px solid #f84d44; border-radius: 10px; padding: 15px; margin: 20px 0;">
+                    <p style="color: #f12929; font-family: serif; font-size: 13px; margin: 0;">
+                        ⚠️ Important: Introduce new products gradually (one at a time) and always patch test. For persistent concerns, consult a dermatologist.
+                    </p>
+                </div>
+            </body>
+            </html>
+        `;
+    };
+
+    const saveAsPDF = async () => {
+        // Prevent multiple simultaneous PDF generation requests
+        if (generatingPDF) {
+            return;
+        }
+
+        try {
+            setGeneratingPDF(true);
+            const html = generateHTMLContent();
+            
+            // Generate PDF
+            const { uri } = await Print.printToFileAsync({
+                html,
+                base64: false
+            });
+
+            // Check if sharing is available
+            const isAvailable = await Sharing.isAvailableAsync();
+            
+            if (isAvailable) {
+                await Sharing.shareAsync(uri, {
+                    mimeType: 'application/pdf',
+                    dialogTitle: 'Save your skincare routine',
+                    UTI: 'com.adobe.pdf'
+                });
+            } else {
+                Alert.alert(
+                    'Success',
+                    `PDF saved to: ${uri}`,
+                    [{ text: 'OK' }]
+                );
+            }
+        } catch (error) {
+            console.error('Error generating PDF:', error);
+            Alert.alert(
+                'Error',
+                'Failed to generate PDF. Please try again.',
+                [{ text: 'OK' }]
+            );
+        } finally {
+            setGeneratingPDF(false);
+        }
+    };
 
     const renderItem = ({item}, time) => {
         return (
@@ -199,9 +371,14 @@ export default function Routine(){
             <Pressable style={styles.backbutton}
             onPress={() => router.push("/skin_types")}><Text style={{fontSize: 15}}>Start Over</Text>
             </Pressable>
-            <Pressable style={styles.nextbutton}
-            onPress={() => saveAsPDF()}
-            ><Text style={{color: '#ffffffff', fontSize: 15}}><Download size={18}/>Save Routine As PDF</Text>
+            <Pressable 
+                style={[styles.nextbutton, generatingPDF && {opacity: 0.6}]}
+                onPress={() => saveAsPDF()}
+                disabled={generatingPDF}
+            >
+                <Text style={{color: '#ffffffff', fontSize: 15}}>
+                    {generatingPDF ? '⏳ Generating...' : <><Download size={15} color="#ffffffff"/>  Save Routine As PDF</>}
+                </Text>
             </Pressable>
         </View>
         );
@@ -450,15 +627,15 @@ const styles = StyleSheet.create({
         marginTop: 20
     },
     backbutton:{
-        paddingVertical: 10, 
-        paddingHorizontal: 40,
+        paddingVertical: 8, 
+        paddingHorizontal: 30,
         borderColor: '#767676ff',
         borderWidth: 1,
         borderRadius: 10,
     },
     nextbutton:{
-        paddingVertical: 10, 
-        paddingHorizontal: 40,
+        paddingVertical: 8, 
+        paddingHorizontal: 20,
         backgroundColor: '#04a2adff',
         borderRadius: 10,
         borderWidth: 1,
