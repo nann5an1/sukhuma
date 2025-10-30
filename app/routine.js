@@ -21,7 +21,7 @@ export default function Routine(){
     }, []);
 
     async function fetchFromLlama(){
-        const API_URL = process.env.NODE_ENV === "development" ? "http://192.168.0.7:3000" : "https://sukhuma-api.vercel.app";
+        const API_URL = process.env.NODE_ENV === "development" ? "http://192.168.0.7:3000" : "https://sukhumav10.vercel.app/skincareroutine";
         console.log("API URL", API_URL);
         try {
             // console.log("Skin data: ", skinData);
