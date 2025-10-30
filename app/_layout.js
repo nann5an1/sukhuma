@@ -10,7 +10,7 @@ export default function RootLayout() {
       <View style={{ flex: 1 }}>
         <Stack>
           <Stack.Screen name="index" options={{ headerShown: false }}/>
-          <Stack.Screen name="home" options={{ title: "Home" }} />
+          <Stack.Screen name="home" options={{ headerShown: false }} />
           <Stack.Screen name="skin_types" options={{ title: "Skin Type" }} />
           <Stack.Screen name="sensitivity" options={{ title: "Sensitivity" }} />
           <Stack.Screen name="skincare_exp" options={{ title: "Skincare Experience" }} />

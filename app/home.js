@@ -32,10 +32,10 @@ export default function Home() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ffffffff',
+    backgroundColor: '#ffffff',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 50
+    paddingTop: 30
   },
   title:{
     color: '#04a2adff',

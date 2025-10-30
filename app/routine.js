@@ -6,7 +6,6 @@ import { Text, StyleSheet, View, FlatList, ActivityIndicator, Pressable, Alert }
 import { RefreshCw, Download, Sun, Moon, Calendar, Lightbulb, Sparkles, Heart, ShoppingBag } from "lucide-react-native";
 import * as Print from 'expo-print';
 import * as Sharing from 'expo-sharing';
-import * as FileSystem from 'expo-file-system';
 
 export default function Routine(){
     const {skinData, setSkinData} = useContext(SkinDataContext);
@@ -22,10 +21,12 @@ export default function Routine(){
     }, []);
 
     async function fetchFromLlama(){
+        const API_URL = process.env.NODE_ENV === "development" ? "http://192.168.0.7:3000" : "https://sukhuma-api.vercel.app";
+        console.log("API URL", API_URL);
         try {
-            console.log("Skin data: ", skinData);
+            // console.log("Skin data: ", skinData);
             setLoading(true);
-            const response = await fetch("http://192.168.0.8:3000/skincareroutine", {
+            const response = await fetch(`${API_URL}/skincareroutine`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -44,9 +45,9 @@ export default function Routine(){
                     parsedResult = JSON.parse(result);
                 }
                 
-                console.log("Parsed data: ", parsedResult);
-                console.log("Data array: ", parsedResult.data);
-                console.log("Treatments: ", parsedResult.treatments);
+                // console.log("Parsed data: ", parsedResult);
+                // console.log("Data array: ", parsedResult.data);
+                // console.log("Treatments: ", parsedResult.treatments);
                 
                 setData(parsedResult.data || []);
                 setTreatments(parsedResult.treatments || { weekelytreatments: [], tips: [] });
