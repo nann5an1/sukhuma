@@ -36,4 +36,9 @@ It combines a **React Native** frontend, an **Express.js** backend, and the **Ll
 5. The result is displayed neatly on the app interface.
 
 ---
+## App Demo
 
+
+<img width="1080" height="2424" alt="Screenshot_1761827950" src="https://github.com/user-attachments/assets/993bec3c-976b-4a61-a7fd-f75a8317646d" />
+
+<img width="1080" height="2424" alt="Screenshot_1761827962" src="https://github.com/user-attachments/assets/e004bcf9-13e6-4bbc-910d-4b6b6804b506" />
