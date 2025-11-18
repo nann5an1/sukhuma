@@ -42,7 +42,9 @@ It combines a **React Native** frontend, an **Express.js** backend, and the **Ll
   <tr>
     <td>
         <img width="1080" height="2424" alt="Screenshot_1761827962" src="https://github.com/user-attachments/assets/e004bcf9-13e6-4bbc-910d-4b6b6804b506" />
-        <img width="1080" height="2424" alt="Screenshot_1761827950" src="https://github.com/user-attachments/assets/993bec3c-976b-4a61-a7fd-f75a8317646d" />
+    </td>
+    <td>
+      <img width="1080" height="2424" alt="Screenshot_1761827950" src="https://github.com/user-attachments/assets/993bec3c-976b-4a61-a7fd-f75a8317646d" />
     </td>
   </tr>
 </table>
