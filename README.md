@@ -38,7 +38,7 @@ It combines a **React Native** frontend, an **Express.js** backend, and the **Ll
 ---
 ## App Demo
 
-<table padding="1rem">
+<table padding="15px">
   <tr>
     <td>
         <img width="1080" height="2424" alt="Screenshot_1761827962" src="https://github.com/user-attachments/assets/e004bcf9-13e6-4bbc-910d-4b6b6804b506" />
