@@ -41,11 +41,31 @@ It combines a **React Native** frontend, an **Express.js** backend, and the **Ll
 <table>
   <tr>
     <td>
-        <img width="100" height="2424" alt="Screenshot_1761827962" src="https://github.com/user-attachments/assets/e004bcf9-13e6-4bbc-910d-4b6b6804b506" />
+        <img width="150" height="2424" alt="Screenshot_1761827962" src="https://github.com/user-attachments/assets/e004bcf9-13e6-4bbc-910d-4b6b6804b506" />
     </td>
     <td>
-      <img width="100" height="2424" alt="Screenshot_1761827950" src="https://github.com/user-attachments/assets/993bec3c-976b-4a61-a7fd-f75a8317646d" />
+      <img width="150" height="2424" alt="Screenshot_1761827950" src="https://github.com/user-attachments/assets/993bec3c-976b-4a61-a7fd-f75a8317646d" />
     </td>
+    <td>
+      <img width="1080" height="2424" alt="Screenshot_1761827969" src="https://github.com/user-attachments/assets/51172f26-3a64-4933-a503-f012af703ada" />
+    </td>
+    <td>
+      <img width="1080" height="2424" alt="Screenshot_1761827969" src="https://github.com/user-attachments/assets/801fe444-afd7-484c-bfbf-221f238a7db0" />
+    </td>
+    <td>
+      <img width="1080" height="2424" alt="Screenshot_1761827975" src="https://github.com/user-attachments/assets/6ea61968-3900-4206-aad8-29d019022629" />
+    </td>
+    <tr>
+       <td>
+        <img width="1080" height="2424" alt="Screenshot_1761827979" src="https://github.com/user-attachments/assets/ffa6f830-87c3-422b-bd31-fe40fbf9d8b5" />
+      </td>
+      <td>
+        <img width="1080" height="2424" alt="Screenshot_1761827997" src="https://github.com/user-attachments/assets/d048eeed-4692-4ad1-8243-a630a7c5c6bd" />
+      </td>
+      <td>
+      </td>
+    </tr>
+   
   </tr>
 </table>
 
