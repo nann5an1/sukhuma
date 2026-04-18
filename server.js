@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import Groq from 'groq-sdk';
-import dotenv, { parse } from 'dotenv';
+import dotenv from 'dotenv';
 
 dotenv.config();
 
@@ -9,8 +9,9 @@ const app = express();
 const groq = new Groq({
   apiKey: process.env.GROQ_API_KEY,
 });
-function buildPrompt(skinData){
-    const {
+
+function buildPrompt(skinData) {
+  const {
     type,
     sensitivity,
     skincare_exp,
@@ -22,26 +23,27 @@ function buildPrompt(skinData){
     diet,
     lifestyle,
     budget
-    } = skinData;
+  } = skinData;
 
-    return `You are an expert dermatologist and skincare specialist. Based on the following customer profile, create a comprehensive personalized skincare routine.
+  return `You are an expert dermatologist and skincare specialist. Based on the following customer profile, create a comprehensive personalized skincare routine.
 
-    CUSTOMER PROFILE:
-    - Skin Type: ${type}
-    - Sensitivity Level: ${sensitivity}
-    - Skincare Experience: ${skincare_exp}
-    - Age: ${age}
-    - Acne Type: ${acnetype || "None"}
-    - Skin Concerns: ${skinConcerns.join(", ") || "None"}
-    - Allergies/Sensitivities: ${allergies.join(", ") || "None"}
-    - Product Preferences: ${preferences.join(", ") || "None"}
-    - Diet: ${diet.join(", ") || "Not specified"}
-    - Lifestyle: ${lifestyle.join(", ") || "Not specified"}
-    - Budget: ${budget}
+CUSTOMER PROFILE:
+- Skin Type: ${type}
+- Sensitivity Level: ${sensitivity}
+- Skincare Experience: ${skincare_exp}
+- Age: ${age}
+- Acne Type: ${acnetype || "None"}
+- Skin Concerns: ${skinConcerns.join(", ") || "None"}
+- Allergies/Sensitivities: ${allergies.join(", ") || "None"}
+- Product Preferences: ${preferences.join(", ") || "None"}
+- Diet: ${diet.join(", ") || "Not specified"}
+- Lifestyle: ${lifestyle.join(", ") || "Not specified"}
+- Budget: ${budget}
 
-    IMPORTANT: Respond with ONLY valid JSON, no markdown, no code blocks, no extra text. Just the raw JSON object.
-    NOTE: The steps for the routines can be more than 3 steps. The recommended products must be always 3 products per step.
-    Please provide a detailed skincare routine in this exact JSON format:
+CRITICAL: Respond with ONLY valid JSON. No markdown, no code blocks, no extra text. Just the raw JSON object.
+IMPORTANT: Each routine step must have exactly 3 product recommendations. Keep info fields under 50 words.
+
+Provide the skincare routine in this exact JSON format:
 
 {
   "data": [
@@ -50,21 +52,9 @@ function buildPrompt(skinData){
       "routine": [
         {
           "id": 1,
-          "title": "step name (e.g., Cleanser, Toner, Serum, etc.)",
-          "products": ["product1", "product2", "product3"],
-          "info": "application instructions and benefits (no more than 50 words)."
-        },
-        {
-          "id": 2,
           "title": "step name",
           "products": ["product1", "product2", "product3"],
-          "info": "application instructions and benefits (no more than 50 words)."
-        },
-        {
-          "id": 3,
-          "title": "step name",
-          "products": ["product1", "product2", "product3"],
-          "info": "application instructions and benefits (no more than 50 words)."
+          "info": "application instructions and benefits"
         }
       ]
     },
@@ -75,19 +65,7 @@ function buildPrompt(skinData){
           "id": 1,
           "title": "step name",
           "products": ["product1", "product2", "product3"],
-          "info": "application instructions and benefits (no more than 50 words)."
-        },
-        {
-          "id": 2,
-          "title": "step name",
-          "products": ["product1", "product2", "product3"],
-          "info": "application instructions and benefits (no more than 50 words)."
-        },
-        {
-          "id": 3,
-          "title": "step name",
-          "products": ["product1", "product2", "product3"],
-          "info": "application instructions and benefits (no more than 50 words)."
+          "info": "application instructions and benefits"
         }
       ]
     }
@@ -97,90 +75,102 @@ function buildPrompt(skinData){
       {
         "id": 1,
         "treatment": "treatment name",
-        "info": "treatment description and benefits",
-        "times": "1-2x per week"
-      },
-      {
-        "id": 2,
-        "treatment": "treatment name",
-        "info": "treatment description and benefits",
-        "times": "2-3x per week"
+        "info": "treatment description",
+        "times": "frequency"
       }
     ],
     "tips": [
       {
         "id": 1,
-        "info": "lifestyle tip 1"
-      },
-      {
-        "id": 2,
-        "info": "lifestyle tip 2"
+        "info": "lifestyle tip"
       }
     ]
   },
-  "precautions": "important precautions based on allergies/sensitivities"`
+  "precautions": "important precautions based on profile"
+}`;
 }
 
-
 app.use(cors({
-  origin: "* ",
+  origin: "*",
 }));
 app.use(express.json());
 
-
-app.post("/skincareroutine", (req, res) => {
-    // console.log("request received", req.body);
-    //destruct the data into the variables first
-    const skindata = req.body; 
-
-    //build a prompt for the model
+app.post("/skincareroutine", async (req, res) => {
+  try {
+    const skindata = req.body;
+    console.log("received skincard information");
     const prompt = buildPrompt(skindata);
-    fetchFromLlama();
-    async function fetchFromLlama() {
-        try {
-            const message = await groq.chat.completions.create({
-            model: "llama-3.3-70b-versatile",
-            max_tokens: 2000,
-            messages: [
-                {
-                role: "user",
-                content: prompt,
-                },
-            ],
-            });
-            let responseText = message.choices[0]?.message?.content || '';
-            responseText = responseText.trim();
 
-            // remove markdown fences
-            if (responseText.startsWith("```")) {
-            responseText = responseText.replace(/```(json)?/g, "").trim();
-            }
+    // Increased max_tokens and added temperature for more consistent output
+    const message = await groq.chat.completions.create({
+      model: "llama-3.3-70b-versatile",
+      max_tokens: 4096, // Increased from 2000
+      temperature: 0.7,
+      messages: [
+        {
+          role: "system",
+          content: "You are a helpful assistant that responds only in valid JSON format. Never include markdown formatting or code blocks."
+        },
+        {
+          role: "user",
+          content: prompt,
+        },
+      ],
+      response_format: { type: "json_object" }, // Enable JSON mode if supported
+    });
 
-            // Try to fix unescaped quotes
-            responseText = responseText
-            .replace(/\n/g, " ")
-            .replace(/\\'/g, "'");
-
-            // Then safely parse
-            let parsedData;
-            try {
-                parsedData = JSON.parse(responseText);
-                res.json(parsedData);
-            } catch (err) {
-            console.error("Failed to parse JSON:", err.message);
-            console.error("Offending text:", responseText);
-            res.status(500).json({ error: "Invalid JSON from model", raw: responseText });
-            return;
-            }
-        } catch (error) {
-            console.log("error in getting response to frontend", error);
-        }
+    let responseText = message.choices[0]?.message?.content || '';
+    
+    if (!responseText) {
+      throw new Error("Empty response from model");
     }
+
+    // Clean up the response
+    responseText = responseText.trim();
+
+    // Remove markdown code fences if present
+    if (responseText.startsWith("```")) {
+      responseText = responseText.replace(/```(json)?/g, "").trim();
+    }
+
+    // Remove any leading/trailing whitespace or newlines
+    responseText = responseText.replace(/^\s+|\s+$/g, '');
+
+    // Validate JSON structure before parsing
+    let parsedData;
+    try {
+      parsedData = JSON.parse(responseText);
+      
+      // Validate required structure
+      if (!parsedData.data || !parsedData.treatments || !parsedData.precautions) {
+        throw new Error("Invalid JSON structure: missing required fields");
+      }
+
+      res.json(parsedData);
+    } catch (parseError) {
+      console.error("JSON Parse Error:", parseError.message);
+      console.error("Response length:", responseText.length);
+      console.error("First 500 chars:", responseText.substring(0, 500));
+      console.error("Last 500 chars:", responseText.substring(responseText.length - 500));
+      
+      res.status(500).json({ 
+        error: "Invalid JSON from model", 
+        details: parseError.message,
+        responseLength: responseText.length,
+        preview: responseText.substring(0, 200) + "..."
+      });
+    }
+  } catch (error) {
+    console.error("Error in /skincareroutine:", error);
+    res.status(500).json({ 
+      error: "Failed to generate skincare routine", 
+      details: error.message 
+    });
+  }
 });
 
-
-// app.listen(process.env.PORT, () => {
-//     console.log("Server is running on port 3000");
+// app.listen(process.env.PORT || 3000, () => {
+//   console.log(`Server is running on port ${process.env.PORT || 3000}`);
 // });
 
 export default app;

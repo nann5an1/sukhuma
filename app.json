@@ -1,19 +1,8 @@
 {
   "expo": {
     "plugins": [
-      [
-        "expo-splash-screen",
-        {
-          "backgroundColor": "#232323",
-          "image": "./assets/splash-icon.png",
-          "dark": {
-            "image": "./assets/splash-icon-dark.png",
-            "backgroundColor": "#000000"
-          },
-          "imageWidth": 200
-        }
-      ],
-      "expo-font"
+      "expo-font",
+      "expo-router"
     ],
     "scheme": "sukhuma",
     "name": "sukhuma",
@@ -29,13 +18,15 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "sukhuma.com"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
+      "buildToolsVersion": "36.1.0",
       "edgeToEdgeEnabled": true,
       "package": "sukhuma.com"
     },

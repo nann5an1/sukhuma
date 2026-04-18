@@ -14,19 +14,24 @@ export default function Routine(){
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [generatingPDF, setGeneratingPDF] = useState(false);
+    let api_url = '';
 
     useEffect(() => {
         console.log("Skindata in routine output: ", skinData);    
         fetchFromLlama();
     }, []);
 
+    if(process.env.NODE_ENV === 'staging')
+        api_url = process.env.EXPO_PUBLIC_LOCAL_URL;
+    else
+        api_url = process.env.EXPO_PUBLIC_PRODUCTION_URL;
+
     async function fetchFromLlama(){
-        const API_URL = "https://sukhumav10.vercel.app";
-        console.log("API URL", API_URL);
+        console.log("API URL", api_url);
         try {
             // console.log("Skin data: ", skinData);
             setLoading(true);
-            const response = await fetch(`${API_URL}/skincareroutine`, {
+            const response = await fetch(`${api_url}/skincareroutine`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
