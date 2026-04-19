@@ -1,12 +1,10 @@
 # Sukhuma – AI-Based Skincare Routine Generator
-
 **Sukhuma** is a personal project that uses **AI-driven questionnaire analysis** to generate personalized skincare routines.  
 It combines a **React Native** frontend, an **Express.js** backend, and the **Llama 3.3 70B model (via Groq)** for advanced natural language understanding and skincare recommendation logic.
 
 ---
 
 ## 🚀 Features
-
 - 🧴 **AI Routine Generator** – Creates personalized skincare routines based on user responses  
 - 💬 **Questionnaire Analysis** – Step-by-step input collection for precise skin profiling  
 - ⚙️ **Llama 3.3 70B Integration** – Uses Groq API for fast, intelligent analysis  
@@ -16,7 +14,6 @@ It combines a **React Native** frontend, an **Express.js** backend, and the **Ll
 ---
 
 ## 🧠 Tech Stack
-
 | Layer | Technology |
 |-------|-------------|
 | **Frontend** | React Native |
@@ -28,7 +25,6 @@ It combines a **React Native** frontend, an **Express.js** backend, and the **Ll
 ---
 
 ## ⚡ How It Works
-
 1. Users answer a short step-by-step questionnaire about their skin type, lifestyle, and goals.  
 2. Responses are sent to the backend API.  
 3. The backend calls the **Llama 3.3 70B model** via **Groq** for skincare analysis.  
@@ -36,8 +32,23 @@ It combines a **React Native** frontend, an **Express.js** backend, and the **Ll
 5. The result is displayed neatly on the app interface.
 
 ---
-## App Demo
 
+## 🚧 Pre-Release Notice
+
+> **This is a pre-release version (v0.1.0-beta) and is not yet production-ready.**
+
+This release is published for **early feedback and testing purposes**. You may encounter bugs, incomplete features, or breaking changes in future updates.
+
+- ✅ Core features are functional and testable  
+- 🔄 Actively being improved based on feedback  
+- ⚠️ APIs and features may change without notice  
+- 🐛 Bug reports and suggestions are welcome via [Issues](https://github.com/nann5an1/sukhuma/issues) 
+
+If you try Sukhuma and run into anything — broken flows, unexpected results, or ideas for improvement — feel free to open an issue. Every piece of feedback helps shape the next release.
+
+---
+
+## App Demo
 <table>
   <tr>
     <td>
@@ -84,8 +95,4 @@ It combines a **React Native** frontend, an **Express.js** backend, and the **Ll
         <img width="1080" height="2424" alt="Screenshot_1761828118" src="https://github.com/user-attachments/assets/85c38723-0953-470d-aca3-e775b45c547d" />
       </td>
     </tr>
-    
-
 </table>
-
-
