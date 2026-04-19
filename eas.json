@@ -9,15 +9,25 @@
       "distribution": "internal",
       "android": {
         "buildType": "apk"
+      },
+      "env": {
+        "NODE_ENV": "staging",
+        "EXPO_PUBLIC_LOCAL_URL": "http://localhost:3000",
+        "EXPO_PUBLIC_PRODUCTION_URL": "https://sukhuma-v0-2.vercel.app"
       }
     },
     "preview": {
-      "distribution": "internal"
+      "distribution": "internal",
+      "env": {
+        "NODE_ENV": "production",
+        "EXPO_PUBLIC_PRODUCTION_URL": "https://sukhuma-v0-2.vercel.app"
+      }
     },
     "production": {
       "autoIncrement": true,
       "env": {
-        "NODE_ENV": "production"
+        "NODE_ENV": "production",
+        "EXPO_PUBLIC_PRODUCTION_URL": "https://sukhuma-v0-2.vercel.app"
       }
     }
   },

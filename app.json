@@ -23,15 +23,15 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "foregroundImage": "./assets/icon.png",
+        "backgroundColor": "#04a2ad"
       },
       "buildToolsVersion": "36.1.0",
       "edgeToEdgeEnabled": true,
       "package": "sukhuma.com"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/adaptive-icon.png"
     },
     "extra": {
       "eas": {
